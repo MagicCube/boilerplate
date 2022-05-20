@@ -5,7 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [tsconfigPaths()],
   server: {
-    https: true,
+    // https: true,
     host: '0.0.0.0',
   },
 });
