@@ -1,38 +1,36 @@
 import childProcess from 'child_process';
+import path from 'path';
 import prompts from 'prompts';
 
-import { templates } from '@/templates';
 import type { Author, Project } from '@/core';
 import { createProject } from '@/core';
+import { templates } from '@/templates';
 
 export async function main() {
-  // const response = await prompts([
-  //   {
-  //     type: 'select',
-  //     name: 'templateName',
-  //     message: 'Choose project type',
-  //     choices: [
-  //       {
-  //         title: 'React Typescript',
-  //         description: 'HTML, TypeScript, React, LESS',
-  //         value: 'react-typescript',
-  //       },
-  //       {
-  //         title: 'Vanilla TypeScript',
-  //         description: 'HTML, TypeScript, LESS',
-  //         value: 'vanilla-typescript',
-  //       },
-  //     ],
-  //   },
-  // ]);
-  // console.info(response);
+  const response = await prompts([
+    {
+      type: 'text',
+      name: 'projectName',
+      message: 'Input project name',
+    },
+    {
+      type: 'select',
+      name: 'templateId',
+      message: 'Choose project type',
+      choices: Object.entries(templates).map(([id, template]) => ({
+        title: template.name,
+        description: template.tags ? template.tags.join(', ') : '',
+        value: id,
+      })),
+    },
+  ]);
   const author = await getAuthorFromGit();
   const project: Project = {
-    name: 'test',
+    name: response.projectName,
     author,
-    rootDir: '/Users/henry/Desktop/test',
+    rootDir: path.resolve(process.cwd(), response.projectName),
   };
-  const template = templates['react-ts'];
+  const template = templates[response.templateId];
   createProject(project, template);
 }
 
