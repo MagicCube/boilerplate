@@ -2,6 +2,7 @@ import type { Action, Stack } from '../core';
 import {
   CopyFileAction,
   CreateFolderAction,
+  DeleteFileAction,
   ShellCommandAction,
 } from '../actions';
 
@@ -22,6 +23,11 @@ export class QuickStack implements Stack {
 
   copy(source: string, target: string) {
     const action = new CopyFileAction(source, target);
+    return this.run(action);
+  }
+
+  delete(path: string) {
+    const action = new DeleteFileAction(path);
     return this.run(action);
   }
 

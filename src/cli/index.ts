@@ -32,7 +32,7 @@ export async function main() {
     author,
     rootDir: '/Users/henry/Desktop/test',
   };
-  const template = templates['vanilla-ts'];
+  const template = templates['react-ts'];
   createProject(project, template);
 }
 
