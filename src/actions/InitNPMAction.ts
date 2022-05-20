@@ -12,6 +12,13 @@ export class InitNPMAction extends BasedAction<undefined> {
           name: context.project.name,
           author: context.project.author,
           license: context.project.license || 'MIT',
+          scripts: {
+            build: 'vite build',
+            dev: 'vite',
+            lint: 'eslint ./src',
+            preview: 'vite preview',
+            start: 'npm run dev',
+          },
         };
       }
     );
